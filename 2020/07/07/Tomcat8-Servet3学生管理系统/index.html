@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tomcat8+Servet3学生管理系统 | Leric</title><meta name="description" content="简单的一个学生管理系统"><meta name="keywords" content="Tomcat,Servlet"><meta name="author" content="Leric"><meta name="copyright" content="Leric"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://s1.ax1x.com/2020/08/21/dteT7F.png"><link rel="canonical" href="http://lyric-git.gitee.io/blog/2020/07/07/Tomcat8-Servet3%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Tomcat8+Servet3学生管理系统"><meta property="og:url" content="http://lyric-git.gitee.io/blog/2020/07/07/Tomcat8-Servet3%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/"><meta property="og:site_name" content="Leric"><meta property="og:description" content="简单的一个学生管理系统"><meta property="og:image" content="https://s1.ax1x.com/2020/08/21/dNsuJe.jpg"><meta property="article:published_time" content="2020-07-07T12:49:03.000Z"><meta property="article:modified_time" content="2020-08-21T12:53:15.016Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/blog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/blog/',
+  hexoversion: '5.0.2',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-08-21 20:53:15'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.0.2"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="https://s1.ax1x.com/2020/08/21/dYbiKf.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/blog/archives/"><div class="headline">文章</div><div class="length_num">6</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/blog/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/blog/categories/"><div class="headline">分类</div><div class="length_num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/blog/books/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page" href="/blog/categories/life/"><i class="fa-fw fas fa-file-alt"></i><span> 随想</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://music.163.com/#/playlist?id=2355918315"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/blog/about/"><i class="fa-fw fas fa-user"></i><span> 我</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">1. 项目简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%8A%9F%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">1.1 功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">2. 功能实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E8%AE%BE%E8%AE%A1"><span class="toc-number">3.1.1.</span> <span class="toc-text">表设计</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="toc-number">3.1.2.</span> <span class="toc-text">表结构</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E5%89%8D%E7%AB%AF"><span class="toc-number">3.2.</span> <span class="toc-text">2.2.1 前端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95"><span class="toc-number">3.2.1.</span> <span class="toc-text">用户登录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E5%B1%95%E7%A4%BA%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.2.2.</span> <span class="toc-text">用户信息展示页面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BF%AE%E6%94%B9%E4%BF%A1%E6%81%AF%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.2.3.</span> <span class="toc-text">用户修改信息页面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%A4%B4%E5%83%8F"><span class="toc-number">3.2.4.</span> <span class="toc-text">下载头像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95"><span class="toc-number">3.2.5.</span> <span class="toc-text">退出登录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.2.6.</span> <span class="toc-text">数据查询页面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.2.7.</span> <span class="toc-text">用户管理页面</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E5%90%8E%E7%AB%AF"><span class="toc-number">3.3.</span> <span class="toc-text">2.2.2 后端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.3.1.</span> <span class="toc-text">连接数据库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%99%BB%E9%99%86%E5%8A%9F%E8%83%BD"><span class="toc-number">3.3.2.</span> <span class="toc-text">登陆功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95-1"><span class="toc-number">3.3.3.</span> <span class="toc-text">退出登录</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%A8%A1%E5%9D%97"><span class="toc-number">3.4.</span> <span class="toc-text">用户模块</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E5%B1%95%E7%A4%BA"><span class="toc-number">3.4.1.</span> <span class="toc-text">用户信息展示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="toc-number">3.4.2.</span> <span class="toc-text">修改密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-number">3.4.3.</span> <span class="toc-text">修改自己的信息</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E5%91%98%E6%A8%A1%E5%9D%97"><span class="toc-number">3.5.</span> <span class="toc-text">管理员模块</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.5.1.</span> <span class="toc-text">学生信息查询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AD%A6%E7%94%9F%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="toc-number">3.5.2.</span> <span class="toc-text">查看学生详细信息</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AD%A6%E7%94%9F%E8%AE%B0%E5%BD%95"><span class="toc-number">3.5.3.</span> <span class="toc-text">删除学生记录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E6%96%B0%E7%94%A8%E6%88%B7"><span class="toc-number">3.5.4.</span> <span class="toc-text">注册新用户</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81-1"><span class="toc-number">3.5.5.</span> <span class="toc-text">修改密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9D%83%E9%99%90"><span class="toc-number">3.5.6.</span> <span class="toc-text">权限</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%80%BB%E7%BB%93%E5%8F%8A%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">3. 总结及问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E6%80%BB%E7%BB%93"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%AF%E6%94%B9%E8%BF%9B%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-number">4.1.1.</span> <span class="toc-text">可改进的地方</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 问题记录及解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BB%BA%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%A4%96%E9%94%AE%E6%97%B6%E5%80%99%E5%8F%91%E7%94%9F%E7%9A%84%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF"><span class="toc-number">4.2.1.</span> <span class="toc-text">1.数据库建表添加外键时候发生的语法错误</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%A4%9A%E4%B8%AA%E6%8C%89%E9%92%AE%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95%E5%88%B0%E4%B8%8D%E5%90%8C%E7%9A%84url"><span class="toc-number">4.2.2.</span> <span class="toc-text">2.多个按钮提交表单到不同的url</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8EJdbcTempla-query%E6%96%B9%E6%B3%95%E5%B0%81%E8%A3%85%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%8C%9C%E6%83%B3"><span class="toc-number">4.2.3.</span> <span class="toc-text">3.关于JdbcTempla query方法封装对象的猜想</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-javax-el-PropertyNotFoundException%E9%94%99%E8%AF%AF%EF%BC%9A"><span class="toc-number">4.2.4.</span> <span class="toc-text">4.javax.el.PropertyNotFoundException错误：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E5%BE%AA%E7%8E%AF%E9%87%8D%E5%AE%9A%E5%90%91%E9%97%AE%E9%A2%98"><span class="toc-number">4.2.5.</span> <span class="toc-text">5.循环重定向问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-mysql%E6%8F%92%E5%85%A5%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98"><span class="toc-number">4.2.6.</span> <span class="toc-text">6.mysql插入中文乱码问题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-%E8%BF%99%E6%98%AF%E5%90%8C%E5%AD%A6%E9%97%AE%E6%88%91%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3Directiry-Listing-For-%E9%94%99%E8%AF%AF"><span class="toc-number">4.2.7.</span> <span class="toc-text">7.这是同学问我怎么解决Directiry Listing For 错误</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%B7"><span class="toc-number">4.2.8.</span> <span class="toc-text">迷</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Tomcat%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF"><span class="toc-number">5.</span> <span class="toc-text">4. Tomcat项目部署上线</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://s1.ax1x.com/2020/08/21/dNsuJe.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/blog/">Leric</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/blog/books/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page" href="/blog/categories/life/"><i class="fa-fw fas fa-file-alt"></i><span> 随想</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://music.163.com/#/playlist?id=2355918315"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/blog/about/"><i class="fa-fw fas fa-user"></i><span> 我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Tomcat8+Servet3学生管理系统</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-07T12:49:03.000Z" title="发表于 2020-07-07 20:49:03">2020-07-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-21T12:53:15.016Z" title="更新于 2020-08-21 20:53:15">2020-08-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/blog/categories/code/">code</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/blog/categories/code/Java/">Java</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h3 id="1-项目简介"><a href="#1-项目简介" class="headerlink" title="1. 项目简介"></a>1. 项目简介</h3><p>​        Tomcat  Servlet  Html  css  jquery  ajax  json</p>
+<p>​        数据库使用mysql数据库,  druid数据库连接池   Spring框架的JdbcTemplate封装类</p>
+<p>​        EL标签  JSTL core标签</p>
+<p>​        <strong>Servket 配置大多使用注解的方式进行</strong></p>
+<p>​        演示账号及密码</p>
+<p>​        学生：20170207  123456</p>
+<p>​        管理员： 111   111</p>
+<p>​        项目源码地址：<a target="_blank" rel="noopener" href="https://gitee.com/Lyric-git/java_web_homewoek">https://gitee.com/Lyric-git/java_web_homewoek</a></p>
+<h3 id="1-1-功能"><a href="#1-1-功能" class="headerlink" title="1.1 功能"></a>1.1 功能</h3><p><img src= "/blog/img/loading.gif" data-lazy-src="/resources/image-20200706094613957.png" alt="image-20200706094613957"></p>
+<h3 id="2-功能实现"><a href="#2-功能实现" class="headerlink" title="2. 功能实现"></a>2. 功能实现</h3><h4 id="2-1-数据库"><a href="#2-1-数据库" class="headerlink" title="2.1 数据库"></a>2.1 数据库</h4><h5 id="表设计"><a href="#表设计" class="headerlink" title="表设计"></a>表设计</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704190228611.png" alt="image-20200704190228611"></p>
+<h5 id="表结构"><a href="#表结构" class="headerlink" title="表结构"></a>表结构</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704190421835.png" alt="image-20200704190421835"></p>
+<h4 id="2-2-1-前端"><a href="#2-2-1-前端" class="headerlink" title="2.2.1 前端"></a>2.2.1 前端</h4><h5 id="用户登录"><a href="#用户登录" class="headerlink" title="用户登录"></a>用户登录</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704191743739.png" alt="image-20200704191743739"></p>
+<h5 id="用户信息展示页面"><a href="#用户信息展示页面" class="headerlink" title="用户信息展示页面"></a>用户信息展示页面</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704212022890.png" alt="image-20200704212022890"></p>
+<h5 id="用户修改信息页面"><a href="#用户修改信息页面" class="headerlink" title="用户修改信息页面"></a>用户修改信息页面</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704212530956.png" alt="image-20200704212530956"></p>
+<h5 id="下载头像"><a href="#下载头像" class="headerlink" title="下载头像"></a>下载头像</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704212708892.png" alt="image-20200704212708892"></p>
+<h5 id="退出登录"><a href="#退出登录" class="headerlink" title="退出登录"></a>退出登录</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704212903653.png" alt="image-20200704212903653"></p>
+<h5 id="数据查询页面"><a href="#数据查询页面" class="headerlink" title="数据查询页面"></a>数据查询页面</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704215042308.png" alt="image-20200704215042308"></p>
+<p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704215239367.png" alt="image-20200704215239367"></p>
+<h5 id="用户管理页面"><a href="#用户管理页面" class="headerlink" title="用户管理页面"></a>用户管理页面</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704214630690.png" alt="image-20200704214630690"></p>
+<p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200704214702761.png" alt="image-20200704214702761"></p>
+<h4 id="2-2-2-后端"><a href="#2-2-2-后端" class="headerlink" title="2.2.2 后端"></a>2.2.2 后端</h4><h5 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a><strong>连接数据库</strong></h5><p><strong>（JDBCUtils）</strong></p>
+<p>这是写的工具类，它提供了一个获取数据库源的方法，在Dao里面只需要给JdbcTemplate提供数据连接源，执行sql使用JdbcTemplate提供的方法。</p>
+<p>在JDBCUtis里，首先通过静态代码块以反射的方式读取数据库连接配置文件，并封装到一个输入流对象；再通过properties.load()方法读取文件并封装到DataSources对象</p>
+<h5 id="登陆功能"><a href="#登陆功能" class="headerlink" title="登陆功能"></a><strong>登陆功能</strong></h5><p><strong>（login.jsp+loginServlet+CodeServlet）</strong></p>
+<ol>
+<li><p>获取用户登陆账号、密码、角色以及验证码</p>
+<p>将账号保存在session(“id”)中</p>
+</li>
+<li><p>将账号密码封装到login对象中</p>
+</li>
+<li><p>比对验证码是否一致，一致则继续根据角色信息与login对象查询学生以及管理员表</p>
+<p>不一致则跳转回登陆界面并提示验证码错误信息</p>
+</li>
+<li><p>根据角色信息与login对象学生表或管理员表</p>
+<p>若返回唯一一条信息则跳转至StuInfoServlet；否则返回登陆页面并提示账号或密码错误信息</p>
+</li>
+</ol>
+<h5 id="退出登录-1"><a href="#退出登录-1" class="headerlink" title="退出登录"></a>退出登录</h5><p>​    <strong>(LogoutServlet)</strong></p>
+<ol>
+<li><p>点击退出登录链接跳转至LogoutServlet</p>
+<ol start="2">
+<li>LogoutServlet清空session并跳转至LoginServlet</li>
+</ol>
+</li>
+</ol>
+<h4 id="用户模块"><a href="#用户模块" class="headerlink" title="用户模块"></a>用户模块</h4><h5 id="用户信息展示"><a href="#用户信息展示" class="headerlink" title="用户信息展示"></a>用户信息展示</h5><p>​    (<strong>usershow.jsp+StuInfoServlet</strong>)</p>
+<ol>
+<li><p>StuInfoServlet取出session中的id信息 </p>
+<ol start="2">
+<li>查询20170207_student对应学号的学生信息并封装到student对象</li>
+<li>将student存入session(“stu”) 并跳转至usershow.jsp</li>
+<li>usershow.jsp根据session中的stu对象展示信息</li>
+</ol>
+</li>
+</ol>
+<h5 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h5><p>​    <strong>(alterpassword.jsp+AlterasswordServlet)</strong></p>
+<ol>
+<li><p>点击修改密码按钮跳转至alterpassword.jsp，前端验证非空以及新旧密码不能一致</p>
+</li>
+<li><p>填写新旧密码后点击提交将表单数据提交到AlterPasswordServlet</p>
+</li>
+<li><p>在session(“id”)中取出学号，在请求体取得新旧密码数据</p>
+</li>
+<li><p>将旧密码跟学号封装进alter，用alter作为对象查询20170207_user表</p>
+<p>若返回唯一数据则验证成功；否则返回错误信息在页面中展示</p>
+<p>若验证成功将alter中的密码成员修改为新密码</p>
+</li>
+</ol>
+<ol start="5">
+<li><p>将alter作为参数执行修改密码方法alterPsw(alter)</p>
+<p>修改成功跳转至LgoutServlet退出登录</p>
+</li>
+</ol>
+<h5 id="修改自己的信息"><a href="#修改自己的信息" class="headerlink" title="修改自己的信息"></a>修改自己的信息</h5><p>​    <strong>（alterinfo.jsp+StuInfoServlet</strong>)</p>
+<ol>
+<li><p>点击修改密码按钮跳转至alterinfo.jsp，前端验证非空</p>
+</li>
+<li><p>填写新旧密码后点击提交将表单数据提交到AlterINfoServlet</p>
+</li>
+<li><p>获取请求体中的参数并封装到alter中</p>
+<p>取得session中的stu对象</p>
+</li>
+<li><p>对应alter与stu对象是否相等</p>
+<p>若相等则直接跳转至alterpassword.jsp；若不等则继续执行</p>
+</li>
+<li><p>根据请求体中的city及province参数查询20170207_city、20170207_province查看表中是否有对应记录</p>
+<p>若有则取出对应的city_id 及 province_id;若无则增加记录并查询对应的city_id 及 province_id并封装到alter;</p>
+</li>
+<li><p>用alter作为参数执行updateStuInfo(alter)方法更新20170207_student</p>
+</li>
+</ol>
+<h4 id="管理员模块"><a href="#管理员模块" class="headerlink" title="管理员模块"></a>管理员模块</h4><h5 id="学生信息查询"><a href="#学生信息查询" class="headerlink" title="学生信息查询"></a><strong>学生信息查询</strong></h5><p>​    <strong>（adminshow.jsp+SelectAllServlet）</strong></p>
+<ol>
+<li><p>点击侧边栏的 数据管理 链接跳转至SeleceAllServlet</p>
+</li>
+<li><p>查询省份表与城市表将结果分别装入List<Province> province 与 List<City> city中</p>
+</li>
+<li><p>获取当前传入的参数封装成ServletBean</p>
+</li>
+<li><p>根据获取的参数判断是否未条件查询以及条件查询的类型</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>执行操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无参</td>
+<td>查询全部学生信息</td>
+</tr>
+<tr>
+<td>name</td>
+<td>根据名字进行模糊查询</td>
+</tr>
+<tr>
+<td>province</td>
+<td>根据省份查询</td>
+</tr>
+<tr>
+<td>city</td>
+<td>根据城市查询</td>
+</tr>
+<tr>
+<td>current</td>
+<td>查询页码；默认为0</td>
+</tr>
+</tbody></table>
+<ol start="5">
+<li><p>再根据相应的参数查询符合条件的记录条数，并计算出有多少也数据,</p>
+<p>分别赋值到SelectBean.total与SelectBean.pages</p>
+</li>
+<li><p>将查询结果装入List<Student> stu中</p>
+</li>
+<li><p>将stu , province , city 分别保存到session(“stu”) , session(“province”) , session(“city”)</p>
+<p>并跳转至adminshow.jsp</p>
+</li>
+<li><p>adminshow.jsp根据session中各对象的属性,利用 el 与 jstl 展示数据以及分页条实现    </p>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="查看学生详细信息"><a href="#查看学生详细信息" class="headerlink" title="查看学生详细信息"></a>查看学生详细信息</h5><p>​    <strong>(adminshow.jsp+ShowInfoServlet+stuinfo.jsp)</strong></p>
+<ol>
+<li><p>adminshow.jsp点击学生信息表中的详情按钮后,js获取到当前对象的学号作为参数构造请求体</p>
+<ol start="2">
+<li>ShowInfoServlet中获取请求参数封装到User对象,并作为参数查询学生表;将结果封装至student</li>
+<li>将student存入session(“stu”);并跳转到stuinfo.jsp</li>
+<li>stuinfo.jsp利用el标签展示数据</li>
+</ol>
+</li>
+</ol>
+<h5 id="删除学生记录"><a href="#删除学生记录" class="headerlink" title="删除学生记录"></a>删除学生记录</h5><p>​    <strong>(adminshow.jsp+DeleteServlet)</strong></p>
+<ol>
+<li>adminshow.jsp点击学生信息表中的详情按钮后,js获取到当前对象的学号作为参数构造请求体</li>
+<li>DeleteServlet获取请求参数id,作为参数执行删除学生方法；联动删除用户表中同学号记录</li>
+<li>再跳转至SelectAllServlet</li>
+</ol>
+<h5 id="注册新用户"><a href="#注册新用户" class="headerlink" title="注册新用户"></a>注册新用户</h5><p>​    <strong>(usermanage.jsp+AddUserServlet)</strong></p>
+<ol>
+<li>点击侧边栏的用户管理链接跳转到usermanage.jsp</li>
+<li>账号输入框绑定blur事件,当失去焦点时发送ajax请求查询用户表是否有相应的记录,并给出操作提示<br>密码输入框绑定blur事件,当失去焦点时检验输入密码长度,并给出提示<ol start="3">
+<li>给不同的按钮绑定点击事件,设置点击不同按钮时提交到不同的地址,并检验非空</li>
+<li>点击新增用户按钮提交表单到AddUserServlet</li>
+<li>AddUserServlet获取参数并封装对象user,作为参数执行新增方法</li>
+<li>联动在学生表增加同学号对象</li>
+<li>跳转至usermanage.jsp并返回操作结果提示</li>
+</ol>
+</li>
+</ol>
+<h5 id="修改密码-1"><a href="#修改密码-1" class="headerlink" title="修改密码"></a>修改密码</h5><p>​    <strong>(usermanage.jsp+AdminAlterPasswordServlet)</strong></p>
+<ol>
+<li><p>点击侧边栏的用户管理链接跳转到usermanage.jsp</p>
+</li>
+<li><p>账号输入框绑定blur事件,当失去焦点时发送ajax请求查询用户表是否有相应的记录,并给出操作提示</p>
+<p>密码输入框绑定blur事件,当失去焦点时检验输入密码长度,并给出提示</p>
+</li>
+<li><p>给不同的按钮绑定点击事件,设置点击不同按钮时提交到不同的地址,并检验非空</p>
+</li>
+<li><p>点击新增用户按钮提交表单到AdminAlterPasswordServlet</p>
+</li>
+<li><p>AdminAlterPasswordServlet获取参数并封装对象user,作为参数执行修改方法</p>
+</li>
+<li><p>跳转至usermanage.jsp并返回操作结果提示</p>
+</li>
+</ol>
+<h5 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h5><p><strong>（loinFilter）</strong></p>
+<p><strong><img src= "/blog/img/loading.gif" data-lazy-src="/resources/%E6%8B%A6%E6%88%AA%E5%99%A8%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.jpg" alt="拦截器执行流程"></strong></p>
+<h3 id="3-总结及问题"><a href="#3-总结及问题" class="headerlink" title="3. 总结及问题"></a>3. 总结及问题</h3><h4 id="3-1-总结"><a href="#3-1-总结" class="headerlink" title="3.1 总结"></a>3.1 总结</h4><h5 id="可改进的地方"><a href="#可改进的地方" class="headerlink" title="可改进的地方"></a>可改进的地方</h5><ol>
+<li><p>层次设计混乱导致Service跟Dao的代码冗杂，应该在初期功能设定的时候把分层的功能明确，提高Dao层代码的复用率</p>
+<ol start="2">
+<li><p>数据库分页那里我把limit写死到Dao层中，导致后期扩展起来十分麻烦且分页相关代码十分冗杂，应该直接返回数据列表，在servlet里根据请求的页码返回对应的子列表，这样也降低数据库访的问次数</p>
+</li>
+<li><p>页面交互逻辑设计在项目初期就应该明确，甚至是session,cookies域的创建、保存以及销毁时机，这次项目做到后期这些变得十分混乱</p>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="3-2-问题记录及解决方法"><a href="#3-2-问题记录及解决方法" class="headerlink" title="3.2 问题记录及解决方法"></a>3.2 问题记录及解决方法</h4><h5 id="1-数据库建表添加外键时候发生的语法错误"><a href="#1-数据库建表添加外键时候发生的语法错误" class="headerlink" title="1.数据库建表添加外键时候发生的语法错误"></a><strong>1.数据库建表添加外键时候发生的语法错误</strong></h5><p>原因：建表使用tap自动提示的方式，而输入con默认提示出来的是”CONCURRENT“而非”CONSTRAINT“ </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ALTER TABLE 20170207_admin ADD CONCURRENT--- 错误</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="number">20170207</span>_student <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> stu_city_fk <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (city_id) <span class="keyword">REFERENCES</span> <span class="number">20170207</span>_city(cid);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-多个按钮提交表单到不同的url"><a href="#2-多个按钮提交表单到不同的url" class="headerlink" title="2.多个按钮提交表单到不同的url"></a><strong>2.多个按钮提交表单到不同的url</strong></h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200626140503173.png" alt="image-20200626140503173"></p>
+<p>使用JavaScript设置按钮的点击事件，修改form的action属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">           $(<span class="string">&quot;[id=add]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">               $(<span class="string">&quot;form&quot;</span>).attr(<span class="string">&quot;action&quot;</span>,<span class="string">&quot;/addUser&quot;</span>);</span><br><span class="line">               alert(<span class="string">&#x27;确认添加用户?&#x27;</span>);</span><br><span class="line">              </span><br><span class="line">           &#125;);</span><br><span class="line">           $(<span class="string">&quot;[id=alert]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">               $(<span class="string">&quot;form&quot;</span>).attr(<span class="string">&quot;action&quot;</span>,<span class="string">&quot;/alert&quot;</span>);</span><br><span class="line">               alert(<span class="string">&#x27;确认修改密码?&#x27;</span>);</span><br><span class="line">             </span><br><span class="line">           &#125;);</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="3-关于JdbcTempla-query方法封装对象的猜想"><a href="#3-关于JdbcTempla-query方法封装对象的猜想" class="headerlink" title="3.关于JdbcTempla query方法封装对象的猜想"></a><strong>3.关于JdbcTempla query方法封装对象的猜想</strong></h5><p>JdbcTempla query封装对象也许是靠数据库列名于Bean对象Setter方法名对应进行的，实际怎样后续继续学习Spring框架。</p>
+<h5 id="4-javax-el-PropertyNotFoundException错误："><a href="#4-javax-el-PropertyNotFoundException错误：" class="headerlink" title="4.javax.el.PropertyNotFoundException错误："></a><strong>4.javax.el.PropertyNotFoundException错误：</strong></h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200628163942969.png" alt=" "></p>
+<p>EL表达式中“.”实际上是操作Bean对象的Getter方法,因此Bean对象的Getter方法名行需要符合规范</p>
+<p>注意域有没有用错,对象名字有没有错误</p>
+<h5 id="5-循环重定向问题"><a href="#5-循环重定向问题" class="headerlink" title="5.循环重定向问题"></a><strong>5.循环重定向问题</strong></h5><p><strong><img src= "/blog/img/loading.gif" data-lazy-src="image-20200628195715086.png" alt="image-20200628195715086"></strong></p>
+<p>原因是我在验证失败后又重新重定向回本身,应该重定向到页面</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修改失败 提示失败信息</span></span><br><span class="line">            req.setAttribute(<span class="string">&quot;error&quot;</span>,<span class="string">&quot;旧密码错误&quot;</span>);</span><br><span class="line">            req.getRequestDispatcher(<span class="string">&quot;/alterPasswordServlet.jsp&quot;</span>).forward(req, resp);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="6-mysql插入中文乱码问题"><a href="#6-mysql插入中文乱码问题" class="headerlink" title="6.mysql插入中文乱码问题"></a><strong>6.mysql插入中文乱码问题</strong></h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200630183912854.png" alt=" "></p>
+<p>检查数据库编码-&gt;检查hml编码-&gt;</p>
+<p>最后数据库配置文件加上编码参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url&#x3D;jdbc:mysql:&#x2F;&#x2F;&#x2F;wulianwang17?useUnicode&#x3D;true&amp;characterEncoding&#x3D;utf-8</span><br></pre></td></tr></table></figure>
+
+<p>servlet加上设置request编码代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">req.setCharacterEncoding(<span class="string">&quot;utf-8&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="7-这是同学问我怎么解决Directiry-Listing-For-错误"><a href="#7-这是同学问我怎么解决Directiry-Listing-For-错误" class="headerlink" title="7.这是同学问我怎么解决Directiry Listing For 错误"></a>7.这是同学问我怎么解决Directiry Listing For 错误</h5><p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200711122304678.png" alt="image-20200711122304678"></p>
+<p>首先看到这个我猜测是没有映射主页的问题，然后让他在web.xml里加上Welcome-list配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">welcome-file-list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">welcome-file</span>&gt;</span>login.jsp<span class="tag">&lt;/<span class="name">welcome-file</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">welcome-file-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>问题解决-》启动项目直接跳转login.jsp</p>
+<p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200711123246965.png" alt="image-20200711123246965"></p>
+<h5 id="迷"><a href="#迷" class="headerlink" title="迷"></a>迷</h5><p><strong>只要servlet用idea自带的模板创建的话就会报错，但是用自己配置的模板就没问题，暂时还不知道怎么解决</strong></p>
+<p>可能是我修改过自带模板的缘故</p>
+<p><img src= "/blog/img/loading.gif" data-lazy-src="image-20200627201012994.png" alt=" "></p>
+<h3 id="4-Tomcat项目部署上线"><a href="#4-Tomcat项目部署上线" class="headerlink" title="4. Tomcat项目部署上线"></a>4. Tomcat项目部署上线</h3><p>请参阅 Tomcat项目部署上线.md</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Leric</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://lyric-git.gitee.io/blog/2020/07/07/Tomcat8-Servet3%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">http://lyric-git.gitee.io/blog/2020/07/07/Tomcat8-Servet3%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://lyric-git.gitee.io/blog" target="_blank">Leric</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/Tomcat/">Tomcat</a><a class="post-meta__tags" href="/blog/tags/Servlet/">Servlet</a></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2020/08/21/dNsuJe.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/blog/2020/07/18/SSM%E5%B8%B8%E8%A7%81%E6%B3%A8%E8%A7%A3/"><img class="prev-cover" data-lazy-src="https://s1.ax1x.com/2020/08/21/dtz5tK.jpg" onerror="onerror=null;src='/blog/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring boot、Spring 常用注解</div></div></a></div></nav></article></main><footer id="footer" style="background-image: url(https://s1.ax1x.com/2020/08/21/dNsuJe.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2020 By Leric</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon_piao" mobile="false" src="/blog/js/third-party/piao.js"></script></div><script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

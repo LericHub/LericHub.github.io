@@ -1,0 +1,292 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SpringBoot学习笔记 | Leric</title><meta name="description" content="SpringBootApplication 牛逼"><meta name="keywords" content="Spring"><meta name="author" content="Leric"><meta name="copyright" content="Leric"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://s1.ax1x.com/2020/08/21/dteT7F.png"><link rel="canonical" href="http://lyric-git.gitee.io/blog/2020/08/21/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="SpringBoot学习笔记"><meta property="og:url" content="http://lyric-git.gitee.io/blog/2020/08/21/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="Leric"><meta property="og:description" content="SpringBootApplication 牛逼"><meta property="og:image" content="https://s1.ax1x.com/2020/08/21/dtz71e.jpg"><meta property="article:published_time" content="2020-08-21T11:21:47.000Z"><meta property="article:modified_time" content="2020-08-21T12:27:04.114Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/blog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/blog/',
+  hexoversion: '5.0.2',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-08-21 20:27:04'
+}</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.0.2"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" data-lazy-src="https://s1.ax1x.com/2020/08/21/dYbiKf.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/blog/archives/"><div class="headline">文章</div><div class="length_num">6</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/blog/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/blog/categories/"><div class="headline">分类</div><div class="length_num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/blog/books/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page" href="/blog/categories/life/"><i class="fa-fw fas fa-file-alt"></i><span> 随想</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://music.163.com/#/playlist?id=2355918315"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/blog/about/"><i class="fa-fw fas fa-user"></i><span> 我</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringBoot"><span class="toc-number">1.</span> <span class="toc-text">SpringBoot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">文件目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%B1%BB%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">启动类的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringBoot%E5%88%A9%E7%94%A8%E6%8F%92%E4%BB%B6%E6%89%93%E5%8C%85"><span class="toc-number">1.3.</span> <span class="toc-text">SpringBoot利用插件打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8Json%E8%BF%94%E5%9B%9E%E7%BB%99%E5%89%8D%E7%AB%AF"><span class="toc-number">1.4.</span> <span class="toc-text">用Json返回给前端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Boot-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%B3%A8%E5%85%A5"><span class="toc-number">1.5.</span> <span class="toc-text">Spring Boot 配置文件注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">1.6.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8"><span class="toc-number">1.7.</span> <span class="toc-text">自定义全局异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">1.8.</span> <span class="toc-text">过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%99%BB%E9%99%86%E7%8A%B6%E6%80%81%E7%A0%81"><span class="toc-number">1.8.1.</span> <span class="toc-text">前后端场景下登陆状态码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-number">1.9.</span> <span class="toc-text">监听器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-number">1.10.</span> <span class="toc-text">拦截器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.11.</span> <span class="toc-text">定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.12.</span> <span class="toc-text">异步任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E8%B7%A8%E5%9F%9F%E9%85%8D%E7%BD%AE"><span class="toc-number">1.13.</span> <span class="toc-text">开启跨域配置</span></a></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://s1.ax1x.com/2020/08/21/dtz71e.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/blog/">Leric</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/blog/books/"><i class="fa-fw fas fa-book"></i><span> 阅读</span></a></li><li><a class="site-page" href="/blog/categories/life/"><i class="fa-fw fas fa-file-alt"></i><span> 随想</span></a></li><li><a class="site-page" target="_blank" rel="noopener" href="https://music.163.com/#/playlist?id=2355918315"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/blog/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/blog/about/"><i class="fa-fw fas fa-user"></i><span> 我</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">SpringBoot学习笔记</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-21T11:21:47.000Z" title="发表于 2020-08-21 19:21:47">2020-08-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-21T12:27:04.114Z" title="更新于 2020-08-21 20:27:04">2020-08-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/blog/categories/code/">code</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/blog/categories/code/Java/">Java</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h2><h3 id="文件目录结构"><a href="#文件目录结构" class="headerlink" title="文件目录结构"></a>文件目录结构</h3><ul>
+<li><p>⽬录讲解</p>
+<ul>
+<li>src/main/java：存放代码<ul>
+<li>src/main/resources</li>
+<li>static: 存放静态⽂件，⽐如 css、js、image, （访问⽅式 <a target="_blank" rel="noopener" href="http://localhost:8080/js/main.js%EF%BC%89">http://localhost:8080/js/main.js）</a></li>
+<li>templates:存放静态⻚⾯jsp,html,tpl</li>
+<li>config:存放配置⽂件,application.properties</li>
+<li>resources:</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>同个⽂件的加载顺序,静态资源⽂件 Spring Boot 默认会挨个从</p>
+<ul>
+<li><p>META/resources &gt;</p>
+</li>
+<li><p>resources &gt;</p>
+</li>
+<li><p>static &gt;</p>
+</li>
+<li><p>public</p>
+<p>⾥⾯找是否存在相应的资源，如果有则直接返回，不在默认加载的⽬录，则找不到</p>
+</li>
+</ul>
+</li>
+<li><p>默认配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.resources.static-locations</span> = <span class="string">classpath:/META￾INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="启动类的位置"><a href="#启动类的位置" class="headerlink" title="启动类的位置"></a>启动类的位置</h3><ul>
+<li>三种形式</li>
+<li>当启动类和controller在同⼀类中时，在该类上添加注解@Controller即可；</li>
+<li>当启动类和controller分开时，启动类要放在根⽬录下，启动类上只需要注解@SpringBootApplication；</li>
+<li>当启动类和controller分开时，如果启动类在⾮根⽬录下，需要在启动类中增加注解<ul>
+<li>@ComponentScan，并配置需要扫描的包名，如(basePackages = )</li>
+<li>@ComponentScan(basePackages ={“net.xdclass.controller”,”net.xdclass.service”})</li>
+</ul>
+</li>
+</ul>
+<h3 id="SpringBoot利用插件打包"><a href="#SpringBoot利用插件打包" class="headerlink" title="SpringBoot利用插件打包"></a>SpringBoot利用插件打包</h3><ul>
+<li><p>Jar⽅式打包启动</p>
+<ul>
+<li><p>官⽅推荐，⼯作中最常⽤</p>
+</li>
+<li><p>步骤：pom⽂件新增maven插件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line">需要指定打包为jar包</span><br><span class="line">如果没有加，则执⾏jar包 ，报错如下</span><br><span class="line">java -jar spring-boot-demo-0.0.1-SNAPSHOT.jar</span><br><span class="line">no main manifest attribute, in spring-boot-demo-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再在控制台执行 mvn:install 即可</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="用Json返回给前端"><a href="#用Json返回给前端" class="headerlink" title="用Json返回给前端"></a>用Json返回给前端</h3><p>其实就是业务层Controller</p>
+<p>需要定义一个类，使用@Restcontroller注解标识控制层且返回Json(自动序列化为json)</p>
+<p>注解@RequestMapping(“url”)配置一级路径，处理任何请求方法</p>
+<p>在对应的方法上使用@RequestMapping(“url”)配置耳机路径，处理任何请求方法</p>
+<p>为了规范Json返回，一般使用一个包装吧返回数据包装起来</p>
+<h3 id="Spring-Boot-配置文件注入"><a href="#Spring-Boot-配置文件注入" class="headerlink" title="Spring Boot 配置文件注入"></a><strong>Spring Boot 配置文件注入</strong></h3><p>⽅式⼀<br>1、Controller上⾯配置 @PropertySource({“classpath:resource.properties”})<br>2、取得配置文件的值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value(&quot;$&#123;test.name&#125;&quot;)</span> </span><br><span class="line"><span class="keyword">private</span> String name;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>⽅式⼆：实体类配置⽂件<br>1、添加 @Component 注解；<br>2、使⽤ @PropertySource 注解指定配置⽂件位置；<br>3、使⽤ @ConfigurationProperties 注解，设置相关属性；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span> <span class="comment">// 指定为配置类 会被Spring进行扫描</span></span><br><span class="line"><span class="meta">@PropertySource(value = &quot;classpath:pay.properties&quot;)</span> <span class="comment">// 配置配置配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WXConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;wxpay.appid&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String payAppid;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4、必须 通过注⼊IOC对象Resource 进来 ， 才能在类中使⽤获取的配置⽂件值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span> </span><br><span class="line"><span class="keyword">private</span> ServerSettings serverSettings;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a><strong>测试</strong></h3><p>@RunWith(SpringRunner.class)     底层⽤junit SpringJUnit4ClassRunner 即是用Spring的Junit框架进行单元测试</p>
+<p>@SpringBootTest(classes={DemoProj2Application.class})    标记启动类 用于启动整个springboot⼯程</p>
+<p>​        若按照规范把Spring Boot 的启动类放在项目根目录的话就不需要配置classes            </p>
+<p>@AutoConfigureMockMvc     使用MockMVC模拟HTTP请求</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testVideListApi</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"><span class="comment">// 构造HTTP GET 请求</span></span><br><span class="line">MvcResult mvcResult =     mockMvc.perform(MockMvcRequestBuilders.get(<span class="string">&quot;/api/v1/pub/video/list&quot;</span>))</span><br><span class="line">       .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();<span class="comment">// 判断是不是HTTP 200 状态码 并且返回</span></span><br><span class="line">        System.out.println(mvcResult.getResponse().getStatus());</span><br><span class="line">        System.out.println(mvcResult.getResponse().getContentAsString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="自定义全局异常"><a href="#自定义全局异常" class="headerlink" title="自定义全局异常"></a><strong>自定义全局异常</strong></h3><p>编写一个类，标识它是异常处理类，指定针对异常的处理方法，在方法内返回约定的错误码并封装成JSON</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@RestControllerAdvice // 标记是异常处理器</span><br><span class="line">public class ExpHandler &#123;</span><br><span class="line"></span><br><span class="line">    @ExceptionHandler(value = Exception.class)// 指定处理异常的种类 这里是最大的异常类</span><br><span class="line">    JsonData handlerException(Exception e, HttpServletRequest request)&#123;</span><br><span class="line"></span><br><span class="line">        return JsonData.buildError(&quot;服务端异常&quot;, -2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h3><p>新建类继承Filter接口，在类上使用注解标记拦截器并指定拦截路径</p>
+<p>doFilter进行校验，然后调用filterChain.doFilter(servletRequest,servletResponse) 方法放行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebFilter(urlPatterns = &quot;/api/v1/pri/*&quot;,filterName = &quot;login&quot;)</span>  </span><br><span class="line"><span class="comment">// 标识拦截器,正则指定拦截路径=所有 /pri 的都拦下</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line">     <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">            </span><br><span class="line">    filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="前后端场景下登陆状态码"><a href="#前后端场景下登陆状态码" class="headerlink" title="前后端场景下登陆状态码"></a>前后端场景下登陆状态码</h4><p>注意要使用ObjectMapper序列化为json数据。</p>
+<p>注意要设置responde返回类型为json</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resp.setContentType(<span class="string">&quot;application/json&quot;</span>); <span class="comment">// 设置返回内容类型</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a><strong>监听器</strong></h3><p>创建监听器只需要实现对应的接口并在类上使用@WebListener注解标识监听器</p>
+<ul>
+<li><p>应用上下文监听器：实现ServletContextListener接口</p>
+<ul>
+<li>监听应用的启动以及销毁</li>
+<li>可以用于应用初始化的时候进行一些配置文件的初始化的操作</li>
+</ul>
+</li>
+<li><p>会话监听器</p>
+<ul>
+<li>监听每一个会话</li>
+</ul>
+</li>
+<li><p>请求监听器</p>
+<ul>
+<li>监听每一个请求</li>
+<li>可以在请求发生的时候记录日志的操作</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebListener</span> <span class="comment">// 标识监听器</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationListener</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent sce)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;context listener init ===============&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextDestroyed</span><span class="params">(ServletContextEvent sce)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;context listener destroy ===============&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><p>拦截器：和过滤器⽤途基本类似，拦截器的功能更强大</p>
+<p>使⽤步骤</p>
+<ul>
+<li><p>新建<strong>拦截配置类</strong>实现WebMvcConfigurer接口，并使用@Configuration注解</p>
+</li>
+<li><p>重写addInterceptors方法，用于注册拦截器</p>
+</li>
+<li><p>新建<strong>拦截类</strong>，实现编写拦截器业务代码，需要实现HandlerInterceptor接口</p>
+<ul>
+<li>preHandle：进入Controller之前执行，登录校验等操作一般在这里<ul>
+<li>返回ture则放行</li>
+</ul>
+</li>
+<li>postHandle：拦截之后执行</li>
+<li>afterCompletion：postHandle之后执行</li>
+</ul>
+</li>
+<li><p>注册拦截器，在拦截器配置类的addInterceptors方法内，注册拦截器并指定拦截路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">registry.addInterceptor(<span class="keyword">new</span> LoginInterceptor()).addPathPatterns(<span class="string">&quot;/api/v1/pri/**&quot;</span>);</span><br><span class="line"><span class="comment">// 注册拦截器 并指定拦截路径</span></span><br><span class="line"><span class="comment">// 拦截器结尾必须**</span></span><br><span class="line"><span class="comment">// 若拦截某一层目录则配置/*/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多个拦截器对同一路径进行拦截的执行顺序：按照注册的顺序执行，先注册，先拦截</li>
+</ul>
+</li>
+</ul>
+<h3 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h3><p>使用SpringBoot自带定时任务框架实现定时任务</p>
+<p><strong>SpringBoot使⽤注解⽅式开启定时任务</strong></p>
+<ol>
+<li><p>启动类⾥⾯ @EnableScheduling开启定时任务，⾃动扫描</p>
+</li>
+<li><p>定时任务业务类 加注解 @Component被容器扫描</p>
+</li>
+<li><p>定时执⾏的⽅法加上注解 @Scheduled(fixedRate=2000) 定期(2000ms)执⾏⼀次</p>
+<p>若使用注解@Scheduled(fixedDelay = 1000) 则为在上一次结束后间隔时间(1000ms)执行</p>
+<p>使用cron表达式指定间隔执行时间 @Scheduled(cron = “*/3 */1 * * * *”)   <a target="_blank" rel="noopener" href="https://tool.lu/crontab/">https://tool.lu/crontab/</a></p>
+</li>
+</ol>
+<h3 id="异步任务"><a href="#异步任务" class="headerlink" title="异步任务"></a>异步任务</h3><p><strong>开启异步任务</strong></p>
+<ol>
+<li><p>启动类⾥⾯使⽤@EnableAsync注解开启功能，⾃动扫描</p>
+</li>
+<li><p>定义异步任务类并使⽤@Component标记组件被容器扫描</p>
+</li>
+<li><p>使用注解@Async</p>
+<p>若注解在类上则标识该类下的全部方法异步进行</p>
+<p>若注解在单个方法上则标识该方法异步进行</p>
+</li>
+</ol>
+<p>控制层使用asyncTask.方法名()执行方法</p>
+<p><strong>使用Future取得异步任务返回值</strong></p>
+<p><strong>设置返回：</strong>方法的返回值设置为Future，方法返回对象需要使用AsyncResult<String>(“task 5”)包裹</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Future返回异步任务执行完成的结果</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Async</span> <span class="comment">// 标识异步任务</span></span><br><span class="line"><span class="comment">// 加到类上：这个类异步</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AsyncTask</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Future <span class="title">task4</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;task4&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">4000L</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// AsyncResult用于包装结果 指定返回类型以及取值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AsyncResult&lt;User&gt;(<span class="keyword">new</span> User(<span class="number">1</span>,<span class="string">&quot;Matsuri&quot;</span>,<span class="string">&quot;123&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Future <span class="title">task5</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;task5&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">4000L</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AsyncResult&lt;String&gt;(<span class="string">&quot;task 5&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>取得返回值：</strong></p>
+<ol>
+<li>执行异步方法，获得方法的执行对象Future类型</li>
+<li>判断异步任务结束 future.idDone()</li>
+<li>获取返回值future.get()</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;future&quot;)</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> JsonData <span class="title">testFuture</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">long</span> begin = System.currentTimeMillis();</span><br><span class="line">       Future future4 = asyncTask.task4();</span><br><span class="line">       Future future5 = asyncTask.task5();</span><br><span class="line"></span><br><span class="line">       User user = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 使用死循环获取异步任务返回结果</span></span><br><span class="line">       <span class="keyword">for</span> (;;)&#123;</span><br><span class="line">           <span class="comment">// 判断异步任务完成</span></span><br><span class="line">           <span class="keyword">if</span> (future4.isDone()&amp;&amp;future5.isDone())&#123;</span><br><span class="line">               <span class="keyword">try</span>&#123;</span><br><span class="line">                   <span class="comment">// 获取异步任务的结果</span></span><br><span class="line">                   user = (User) future4.get();</span><br><span class="line">                   System.out.println(user.toString());</span><br><span class="line"></span><br><span class="line">                   String string = (String) future5.get();</span><br><span class="line">                   System.out.println(string);</span><br><span class="line"></span><br><span class="line">               &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                   e.printStackTrace();</span><br><span class="line">               &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 将结果封装进map</span></span><br><span class="line">       Map&lt;String,Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">       map.put(<span class="string">&quot;time&quot;</span>,end - begin);</span><br><span class="line">       map.put(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> JsonData.buildSuccess(map);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="开启跨域配置"><a href="#开启跨域配置" class="headerlink" title="开启跨域配置"></a>开启跨域配置</h3><p>跨域：浏览器同源策略 1995年，同源政策由 Netscape 公司引⼊浏览器。⽬前，所有浏览器都实⾏这个政策。 最初，它的含义是指，A⽹⻚设置的 Cookie，B⽹⻚不能打开，除⾮这两个⽹⻚”同源”。所谓”同源”指的是”三个相同”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">协议相同 http https</span><br><span class="line">域名相同 www.xdclass.net</span><br><span class="line">端⼝相同 80 81</span><br><span class="line">⼀句话：浏览器从⼀个域名的⽹⻚去请求另⼀个域名的资源时，域名、端⼝、协议任⼀不同，都是跨</span><br><span class="line">域</span><br><span class="line">浏览器控制台跨域提示：</span><br><span class="line">No &#39;Access-Control-Allow-Origin&#39; header is present on the requested</span><br><span class="line">resource. Origin &#39;null&#39; is therefore not allowed access.</span><br></pre></td></tr></table></figure>
+
+<p>当使用分布式之后，跨域问题就出现了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">    1）JSONP</span></span><br><span class="line"><span class="comment">    ⭐2）Http响应头配置允许跨域</span></span><br><span class="line"><span class="comment">    nginx层配置 https://www.cnblogs.com/hawk-whu/p/6725699.html</span></span><br><span class="line"><span class="comment">    ⭐3）程序代码中处理 SpringBoot 通过拦截器配置,添加响应头配置</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 进入Controller之前执行</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> handler</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//表示接受任意域名的请求,也可以指定域名</span></span><br><span class="line">        response.setHeader(<span class="string">&quot;Access-Control-Allow-Origin&quot;</span>, request.getHeader(<span class="string">&quot;origin&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//该字段可选，是个布尔值，表示是否可以携带cookie</span></span><br><span class="line">        response.setHeader(<span class="string">&quot;Access-Control-Allow-Credentials&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line"></span><br><span class="line">        response.setHeader(<span class="string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="string">&quot;GET, HEAD, POST, PUT,PATCH, DELETE, OPTIONS&quot;</span>);</span><br><span class="line"></span><br><span class="line">        response.setHeader(<span class="string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="string">&quot;*&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 处理预检</span></span><br><span class="line">        <span class="keyword">if</span> (HttpMethod.OPTIONS.toString().equals(request.getMethod()))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>❗ 拦截器执行顺序按照注册的顺序所以需要放在最上面</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Leric</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://lyric-git.gitee.io/blog/2020/08/21/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">http://lyric-git.gitee.io/blog/2020/08/21/SpringBoot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://lyric-git.gitee.io/blog" target="_blank">Leric</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/Spring/">Spring</a></div><div class="post_share"><div class="social-share" data-image="https://s1.ax1x.com/2020/08/21/dtz71e.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blog/2020/08/21/Spring-SpringBoot-Mybatis%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E5%90%8E%E7%AB%AF%E9%83%A8%E5%88%86/"><img class="prev-cover" data-lazy-src="https://s1.ax1x.com/2020/08/21/dtK19H.jpg" onerror="onerror=null;src='/blog/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring+SpringBoot+Mybatis项目实战后端部分</div></div></a></div><div class="next-post pull-right"><a href="/blog/2020/08/19/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img class="next-cover" data-lazy-src="https://s1.ax1x.com/2020/08/21/dN0vVO.jpg" onerror="onerror=null;src='/blog/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring学习笔记</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/blog/2020/07/18/SSM常见注解/" title="Spring boot、Spring 常用注解"><img class="relatedPosts_cover" data-lazy-src="https://s1.ax1x.com/2020/08/21/dtz5tK.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-18</div><div class="relatedPosts_title">Spring boot、Spring 常用注解</div></div></a></div><div class="relatedPosts_item"><a href="/blog/2020/08/21/Spring-SpringBoot-Mybatis项目实战后端部分/" title="Spring+SpringBoot+Mybatis项目实战后端部分"><img class="relatedPosts_cover" data-lazy-src="https://s1.ax1x.com/2020/08/21/dtK19H.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-21</div><div class="relatedPosts_title">Spring+SpringBoot+Mybatis项目实战后端部分</div></div></a></div><div class="relatedPosts_item"><a href="/blog/2020/08/19/Spring学习笔记/" title="Spring学习笔记"><img class="relatedPosts_cover" data-lazy-src="https://s1.ax1x.com/2020/08/21/dN0vVO.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-19</div><div class="relatedPosts_title">Spring学习笔记</div></div></a></div></div></div></article></main><footer id="footer" style="background-image: url(https://s1.ax1x.com/2020/08/21/dtz71e.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2020 By Leric</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon_piao" mobile="false" src="/blog/js/third-party/piao.js"></script></div><script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"live2d-widget-model-shizuku"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
